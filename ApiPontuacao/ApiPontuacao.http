@@ -1,0 +1,6 @@
+@ApiPontuacao_HostAddress = http://localhost:5168
+
+GET {{ApiPontuacao_HostAddress}}/PessoaController/
+Accept: application/json
+
+###
