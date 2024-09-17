@@ -74,7 +74,7 @@ namespace ApiPontuacao.Repository
                 try
                 {
                     command.Parameters.AddWithValue("@Id", id);
-                    
+                    cliente.Pontos++;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
