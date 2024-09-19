@@ -31,12 +31,10 @@ namespace ApiPontuacao.Service
                 throw new Exception("Pessoa não existe");
             }
 
-            if (id.Equals(null))
-            {
-                throw new Exception("O id deve ser informado");
-            }
+            
+            _repo.IncrementarPontos(id, 1);
 
-            return _repo.Get(id);
+            return pessoaExistente;
         }
 
         public void Delete(int id)
@@ -69,6 +67,19 @@ namespace ApiPontuacao.Service
                 throw new Exception("O cpf deve ser informado");
             }
 
+        }
+
+        public void AdicionarPontos(int id, int pontos)
+        {
+            var pessoaExistente = Get(id); // Certifique-se de que a pessoa existe
+            if (pessoaExistente != null)
+            {
+                _repo.IncrementarPontos(id, pontos);
+            }
+            else
+            {
+                throw new Exception("Pessoa não encontrada.");
+            }
         }
     }
 }

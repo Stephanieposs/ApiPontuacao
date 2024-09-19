@@ -5,12 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace ApiPontuacao.Controllers
 {
     [ApiController]
-        [Route("api/v1/pessoas")]
+    [Route("api/v1/[controller]")]
     public class PessoaController : Controller
     {
-        
-        
-
             private readonly ServicePessoa _service;
             public PessoaController(ServicePessoa service)
             {
@@ -27,25 +24,22 @@ namespace ApiPontuacao.Controllers
                 return Ok(_service.GetAll());
             }
 
-            // GET: api/v1/pessoas/{id}
-            [HttpGet("{id}")]
-            public IActionResult Get(int id)
+        // GET: api/v1/pessoas/{id}
+        [HttpGet("{id}")] // Correção aqui
+        public IActionResult Get(int id)
+        {
+            try
             {
-                try
-                {
-                    return StatusCode(200, _service.Get(id));
-                    //return Ok(_service.Get(id));
-                }
-                catch (Exception ex)
-                {
-
-                    return BadRequest(ex.Message);
-                }
-
+                return StatusCode(200, _service.Get(id));
             }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
-            // POST: api/v1/pessoas
-            [HttpPost]
+        // POST: api/v1/pessoas
+        [HttpPost]
             public IActionResult Post([FromBody] Pessoa pessoa)
             {
 
@@ -82,7 +76,7 @@ namespace ApiPontuacao.Controllers
 
 
             // DELETE: api/pessoas/{id}
-            [HttpDelete("{id}")]
+            [HttpDelete("/{id}")]
             public IActionResult Delete(int id)
             {
                 try
